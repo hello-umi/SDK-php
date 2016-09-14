@@ -56,8 +56,24 @@ class Helloumi {
         $result = curl_exec($this->crl);
         return new Customer(json_decode($result, true)["user"], $this);
     }
-    function send($to, $message){
-        $data = array("to" => $to, "message" => $message);
+    function send($helloumi_id, $message){
+        $data = array("id" => $helloumi_id, "message" => $message);
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/send/");
+        $result = curl_exec($this->crl);
+        return json_decode($result, true);
+    }
+    function sendPhone($phone, $message){
+        $data = array("phone" => $phone, "message" => $message);
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/send/");
+        $result = curl_exec($this->crl);
+        return json_decode($result, true);
+    }
+    function sendFacebook($facebook_id, $message){
+        $data = array("facebook_id" => $facebook_id, "message" => $message);
         $data_string = json_encode($data);
         curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/send/");

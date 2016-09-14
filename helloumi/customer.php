@@ -18,7 +18,7 @@ class Customer {
         $this->birthdate = $data["birthdate"];
     }
     function send($message){
-        return $this->helloumi->send($this->phone, $message);
+        return $this->helloumi->send($this->helloumi_id, $message);
     }
     function getID(){
       return $this->helloumi_id;
