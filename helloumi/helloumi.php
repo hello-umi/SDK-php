@@ -32,8 +32,24 @@ class Helloumi {
             return False;
         }
     }
-    function getCustomer($phone){
+    function getCustomer($id){
+        $data = array("id" => $id);
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/customer/get/");
+        $result = curl_exec($this->crl);
+        return new Customer(json_decode($result, true)["user"], $this);
+    }
+    function getCustomerFromPhone($phone){
         $data = array("phone" => $phone);
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/customer/get/");
+        $result = curl_exec($this->crl);
+        return new Customer(json_decode($result, true)["user"], $this);
+    }
+    function getCustomerFromFacebook($facebook_id){
+        $data = array("facebook_id" => $facebook_id);
         $data_string = json_encode($data);
         curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/customer/get/");
