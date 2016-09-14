@@ -1,7 +1,7 @@
 <?php
 include_once "customer.php";
 class Helloumi {
-    var $url = "http://localhost:8000";
+    var $url = "https://daisho.helloumi.com";
     var $token;
     var $options;
     var $crl;
@@ -22,7 +22,7 @@ class Helloumi {
         }
     }
     function check(){
-        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/check/");   
+        curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/check/");
         $result = curl_exec($this->crl);
         $json = json_decode($result, true);
         if($json["success"])
@@ -33,17 +33,17 @@ class Helloumi {
         }
     }
     function getCustomer($phone){
-        $data = array("phone" => $phone);                
-        $data_string = json_encode($data);  
-        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);                                                                                                                                                                                              
+        $data = array("phone" => $phone);
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/customer/get/");
         $result = curl_exec($this->crl);
         return new Customer(json_decode($result, true)["user"], $this);
     }
     function send($to, $message){
         $data = array("to" => $to, "message" => $message);
-        $data_string = json_encode($data);  
-        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);                                                                                                                                                                                              
+        $data_string = json_encode($data);
+        curl_setopt($this->crl, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($this->crl, CURLOPT_URL, $this->url."/api/send/");
         $result = curl_exec($this->crl);
         return json_decode($result, true);
