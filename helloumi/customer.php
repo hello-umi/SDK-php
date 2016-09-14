@@ -3,6 +3,7 @@
 class Customer {
     function Customer($data, $helloumi) {
         $this->helloumi = $helloumi;
+        $this->helloumi_id = $data["id"];
         $this->name = $data["name"];
         $this->phone = $data["phone"];
         $this->channel = $data["channel"];
@@ -18,6 +19,9 @@ class Customer {
     }
     function send($message){
         return $this->helloumi->send($this->phone, $message);
+    }
+    function getID(){
+      return $this->helloumi_id;
     }
     function getName(){
         return $this->name;
